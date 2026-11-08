@@ -1,0 +1,370 @@
+<!-- بيحدد نوع الملف إنه HTML5 ولغة الصفحة عربي واتجاه من اليمين للشمال -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <!-- ترميز اللغة عشان الحروف العربية تظهر صح -->
+  <meta charset="UTF-8">
+  <!-- عشان الصفحة تتظبط على شاشة الموبايل -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- عنوان الصفحة اللي بيظهر في التاب -->
+  <title>برنامج الشركة</title>
+  <!-- ربط ملف التصميم -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================ -->
+  <!-- شاشة التحميل (بتظهر أول ما البرنامج يفتح) -->
+  <!-- ============================================ -->
+  <div id="loading-screen" class="loading-screen">
+    <!-- شكل الدايرة اللي بتلف -->
+    <div class="spinner"></div>
+    <!-- نص التحميل -->
+    <h2>جاري تحميل البيانات...</h2>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- شاشة تسجيل الدخول -->
+  <!-- ============================================ -->
+  <div id="login-screen" class="screen">
+    <div class="login-box">
+      <h1>برنامج الشركة</h1>
+      <p class="subtitle">إدارة المبيعات والمشتريات</p>
+      <!-- خانة الإيميل -->
+      <input type="email" id="email" placeholder="الإيميل">
+      <!-- خانة الباسورد -->
+      <input type="password" id="password" placeholder="الباسورد">
+      <!-- زرار الدخول -->
+      <button id="login-btn">دخول</button>
+      <!-- مكان ظهور رسائل الخطأ -->
+      <p id="login-error"></p>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- الشاشة الرئيسية (اللي فيها الشغل) -->
+  <!-- ============================================ -->
+  <div id="main-screen" class="screen hidden">
+
+    <!-- الهيدر العلوي (اسم البرنامج وأزرار AI والخروج) -->
+    <header>
+      <h1>برنامج الشركة</h1>
+      <div style="display: flex; gap: 10px;">
+        <!-- زرار الشات بوت -->
+        <button id="chat-toggle-btn" class="btn-ai">AI</button>
+        <!-- زرار الخروج -->
+        <button id="logout-btn">خروج</button>
+      </div>
+    </header>
+
+    <!-- التبويبات (المبيعات، المشتريات، المصروفات، العملاء) -->
+    <div class="tabs">
+      <button class="tab active" data-tab="sales">المبيعات</button>
+      <button class="tab" data-tab="purchases">المشتريات</button>
+      <!-- تم تصحيح data-tab هنا لتكون expenses -->
+      <button class="tab" data-tab="expenses">المصروفات</button>
+      <button class="tab" data-tab="accounts">العملاء والموردين</button>
+    </div>
+
+    <!-- الإحصائيات (اللي فوق) -->
+    <div class="stats">
+      <div class="stat-box">
+        <span id="stat-label">مبيعات النهاردة</span>
+        <strong id="today-total">0</strong>
+        <small>جنيه</small>
+      </div>
+      <div class="stat-box">
+        <span>عدد العمليات</span>
+        <strong id="today-count">0</strong>
+      </div>
+      <div class="stat-box">
+        <span id="debt-label">الآجل المتبقي</span>
+        <strong id="today-debt">0</strong>
+        <small>جنيه</small>
+      </div>
+    </div>
+
+    <!-- شريط الأدوات (إضافة، بحث، فلتر، تصدير) -->
+    <div class="toolbar">
+      <button id="add-btn">+ إضافة عملية</button>
+      <input type="text" id="search" placeholder="بحث بالاسم أو الصنف...">
+      <input type="date" id="filter-date">
+      <button id="clear-filter">مسح الفلتر</button>
+      <button id="export-btn">تصدير Excel</button>
+    </div>
+
+    <!-- جدول المبيعات -->
+    <div id="sales-table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>التاريخ</th>
+            <th>التلاجة</th>
+            <th>الزبون</th>
+            <th>الصنف</th>
+            <th>الكمية</th>
+            <th>سعر الطن</th>
+            <th>الإجمالي</th>
+            <th>الحالة</th>
+            <th>المدفوع</th>
+            <th>الباقي</th>
+            <th>فاتورة</th>
+            <th>إجراءات</th>
+          </tr>
+        </thead>
+        <tbody id="sales-body"></tbody>
+      </table>
+    </div>
+
+    <!-- جدول المشتريات (مخفي في الأول) -->
+    <div id="purchases-table-container" class="hidden">
+      <table>
+        <thead>
+          <tr>
+            <th>التاريخ</th>
+            <th>المورد</th>
+            <th>الصنف</th>
+            <th>الكمية</th>
+            <th>سعر الطن</th>
+            <th>الإجمالي</th>
+            <th>الحالة</th>
+            <th>المدفوع</th>
+            <th>الباقي</th>
+            <th>فاتورة</th>
+            <th>إجراءات</th>
+          </tr>
+        </thead>
+        <tbody id="purchases-body"></tbody>
+      </table>
+    </div>
+
+    <!-- جدول العملاء والموردين (مخفي في الأول) -->
+    <div id="accounts-table-container" class="hidden">
+      <div style="margin-bottom: 15px; display: flex; gap: 10px;">
+        <!-- زرار إضافة رصيد افتتاحي -->
+        <button id="add-account-btn" style="background: #16a34a; color: white;">+ إضافة عميل / مورد</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>الاسم</th>
+            <th>النوع</th>
+            <th>الرصيد الافتتاحي</th>
+            <th>ملاحظات</th>
+            <th>إجراءات</th>
+          </tr>
+        </thead>
+        <tbody id="accounts-body"></tbody>
+      </table>
+    </div>
+
+    <!-- جدول المصروفات (جديد ومخفي في الأول) -->
+    <div id="expenses-table-container" class="hidden">
+      <div style="margin-bottom: 15px; display: flex; gap: 10px;">
+        <!-- زرار إضافة مصروف -->
+        <button id="add-expense-btn" style="background: #d97706; color: white;">+ إضافة مصروف</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>التاريخ</th>
+            <th>نوع المصروف</th>
+            <th>المبلغ</th>
+            <th>ملاحظات</th>
+            <th>إجراءات</th>
+          </tr>
+        </thead>
+        <tbody id="expenses-body"></tbody>
+      </table>
+    </div>
+
+  </div> <!-- نهاية الشاشة الرئيسية -->
+
+  <!-- ============================================ -->
+  <!-- نافذة إضافة/تعديل عملية (مبيعات/مشتريات) -->
+  <!-- ============================================ -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-box">
+      <h2 id="modal-title">إضافة عملية</h2>
+      
+      <div class="form-row">
+        <label>التاريخ</label>
+        <input type="date" id="input-date">
+      </div>
+      
+      <div class="form-row" id="fridge-row">
+        <label>اسم التلاجة</label>
+        <input type="text" id="input-fridge" placeholder="التلاجة">
+      </div>
+      
+      <div class="form-row" id="person-row">
+        <label id="person-label">اسم الزبون</label>
+        <input type="text" id="input-person" placeholder="الاسم">
+      </div>
+      
+      <div class="form-row">
+        <label>الصنف</label>
+        <input type="text" id="input-item" placeholder="طماطم، خيار، بطاطس...">
+      </div>
+      
+      <div class="form-row">
+        <label>الكمية</label>
+        <div class="weight-group">
+          <input type="number" id="input-weight" placeholder="العدد">
+          <select id="input-unit">
+            <option value="1">طن</option>
+            <option value="0.5">نص طن</option>
+            <option value="0.25">ربع طن</option>
+            <option value="0.125">ثمن طن</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <label>سعر الطن</label>
+        <input type="number" id="input-price" placeholder="سعر الوحدة">
+      </div>
+      
+      <div class="total-preview">
+        الإجمالي: <strong id="preview-total">0</strong> جنيه
+      </div>
+      
+      <div class="form-row">
+        <label>الحالة</label>
+        <select id="input-status">
+          <option value="cash">نقدي</option>
+          <option value="credit">آجل</option>
+        </select>
+      </div>
+      
+      <div class="form-row" id="paid-row">
+        <label>المدفوع</label>
+        <input type="number" id="input-paid" placeholder="المدفوع">
+      </div>
+      
+      <div class="total-preview">
+        الباقي: <strong id="preview-remaining">0</strong> جنيه
+      </div>
+      
+      <div class="form-row">
+        <label>رقم الفاتورة</label>
+        <input type="text" id="input-invoice" placeholder="رقم الفاتورة">
+      </div>
+      
+      <div class="form-row">
+        <label>ملاحظات</label>
+        <textarea id="input-notes" placeholder="ملاحظات..."></textarea>
+      </div>
+      
+      <div class="modal-actions">
+        <button id="save-btn">حفظ</button>
+        <button id="cancel-btn">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- نافذة إضافة رصيد افتتاحي للعملاء والموردين -->
+  <!-- ============================================ -->
+  <div id="account-modal" class="modal hidden">
+    <div class="modal-box">
+      <h2>إضافة رصيد افتتاحي</h2>
+      
+      <div class="form-row">
+        <label>الاسم (عميل أو مورد)</label>
+        <input type="text" id="acc-name" placeholder="اسم العميل أو المورد">
+      </div>
+      
+      <div class="form-row">
+        <label>النوع</label>
+        <select id="acc-type">
+          <option value="customer">عميل (مدين للشركة)</option>
+          <option value="supplier">مورد (الشركة مدينة له)</option>
+        </select>
+      </div>
+      
+      <div class="form-row">
+        <label>الرصيد الافتتاحي (جنيه)</label>
+        <input type="number" id="acc-balance" placeholder="مثلاً 50000">
+      </div>
+      
+      <div class="form-row">
+        <label>ملاحظات (اختياري)</label>
+        <input type="text" id="acc-notes" placeholder="مثلاً: ديون من كراسة 2025">
+      </div>
+      
+      <div class="modal-actions">
+        <button id="save-acc-btn" style="background: #16a34a; color: white;">حفظ</button>
+        <button id="cancel-acc-btn" style="background: #e5e7eb;">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- نافذة إضافة مصروف (اللي كانت ناقصة) -->
+  <!-- ============================================ -->
+  <div id="expense-modal" class="modal hidden">
+    <div class="modal-box">
+      <h2>إضافة مصروف</h2>
+      
+      <div class="form-row">
+        <label>نوع المصروف</label>
+        <input type="text" id="exp-type" placeholder="نقل، تحميل، عمالة...">
+      </div>
+      
+      <div class="form-row">
+        <label>المبلغ (جنيه)</label>
+        <input type="number" id="exp-amount" placeholder="المبلغ">
+      </div>
+      
+      <div class="form-row">
+        <label>ملاحظات (اختياري)</label>
+        <input type="text" id="exp-notes" placeholder="ملاحظات">
+      </div>
+      
+      <div class="modal-actions">
+        <button id="save-exp-btn" style="background: #d97706; color: white;">حفظ</button>
+        <button id="cancel-exp-btn" style="background: #e5e7eb;">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- نافذة الشات بوت -->
+  <!-- ============================================ -->
+  <div id="chat-container" class="chat-container hidden">
+    <div class="chat-header">
+      <span>مساعد الشركة الذكي</span>
+      <button id="chat-close-btn">✕</button>
+    </div>
+    <div id="chat-messages" class="chat-messages">
+      <div class="message bot-message">أهلاً بك! أنا مساعدك الذكي. اسألني عن مبيعات النهاردة، أو مين عليه فلوس، أو أي استفسار عن الأرقام.</div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chat-input" placeholder="اكتب سؤالك هنا...">
+      <button id="chat-send-btn">إرسال</button>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- المكتبات والملفات (لازم تكون في الآخر) -->
+  <!-- ============================================ -->
+  
+  <!-- مكتبة تصدير الإكسيل -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+  <!-- مكتبات Firebase الأساسية -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  <!-- ملف إعدادات Firebase بتاعنا -->
+  <script src="firebase.js"></script>
+
+  <!-- ملفاتك (بالترتيب المهم) -->
+  <script src="state.js"></script>
+  <script src="ui.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>

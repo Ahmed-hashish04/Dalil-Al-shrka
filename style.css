@@ -1,0 +1,676 @@
+/* إلغاء الهوامش والحشو الافتراضي لكل العناصر */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* إعدادات الجسم الأساسية */
+body {
+  font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+  background: #f0f4f3;
+  color: #1f2937;
+  direction: rtl;
+  min-height: 100vh;
+}
+
+/* كلاس لإخفاء أي عنصر */
+.hidden {
+  display: none !important;
+}
+
+/* تنسيق عام للأزرار */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 18px;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+/* تأثير عند المرور على الزر */
+button:hover {
+  opacity: 0.88;
+}
+
+/* تنسيق عام للخانات */
+input, select, textarea {
+  font-family: inherit;
+  padding: 9px 12px;
+  border: 1px solid #cbd5d1;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  background: white;
+  color: #1f2937;
+}
+
+/* تأثير عند الوقوف على الخانة */
+input:focus, select:focus, textarea:focus {
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+}
+
+/* خانة الملاحظات */
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* ===== شاشة تسجيل الدخول ===== */
+
+/* خلفية الشاشة */
+#login-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f766e, #134e4a);
+}
+
+/* صندوق الدخول */
+.login-box {
+  background: white;
+  padding: 44px 36px;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* عنوان الصندوق */
+.login-box h1 {
+  text-align: center;
+  color: #0f766e;
+  font-size: 24px;
+}
+
+/* النص الصغير تحت العنوان */
+.login-box .subtitle {
+  text-align: center;
+  color: #6b7280;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+/* زرار الدخول */
+.login-box button {
+  background: #0f766e;
+  color: white;
+  padding: 13px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 6px;
+}
+
+/* تأثير المرور على زرار الدخول */
+.login-box button:hover {
+  background: #134e4a;
+  opacity: 1;
+}
+
+/* رسالة الخطأ */
+#login-error {
+  color: #dc2626;
+  text-align: center;
+  font-size: 13px;
+  min-height: 18px;
+}
+
+/* ===== الشاشة الرئيسية ===== */
+
+/* الحاوية الرئيسية */
+#main-screen {
+  padding: 20px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* الهيدر العلوي */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* عنوان الهيدر */
+header h1 {
+  color: #0f766e;
+  font-size: 22px;
+}
+
+/* زرار الخروج */
+#logout-btn {
+  background: #ef4444;
+  color: white;
+}
+
+/* ===== التبويبات ===== */
+
+/* حاوية التبويبات */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  background: white;
+  padding: 6px;
+  border-radius: 12px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* التبويب الواحد */
+.tab {
+  flex: 1;
+  background: transparent;
+  color: #6b7280;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+/* تأثير المرور */
+.tab:hover {
+  background: #f0f4f3;
+  opacity: 1;
+}
+
+/* التبويب النشط */
+.tab.active {
+  background: #0f766e;
+  color: white;
+}
+
+/* ===== الإحصائيات ===== */
+
+/* حاوية الإحصائيات */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* صندوق الإحصائية */
+.stat-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-right: 4px solid #0f766e;
+}
+
+/* نص الوصف */
+.stat-box span {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* الرقم الكبير */
+.stat-box strong {
+  color: #0f766e;
+  font-size: 26px;
+}
+
+/* النص الصغير */
+.stat-box small {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+/* ===== شريط الأدوات ===== */
+
+/* الحاوية */
+.toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+/* زرار الإضافة */
+#add-btn {
+  background: #16a34a;
+  color: white;
+  font-weight: bold;
+}
+
+/* خانة البحث */
+#search {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* زرار مسح الفلتر */
+#clear-filter {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+/* ===== الجداول ===== */
+
+/* الجدول */
+table {
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+  border-collapse: collapse;
+}
+
+/* رأس الجدول */
+thead {
+  background: #0f766e;
+  color: white;
+}
+
+/* الخلايا */
+th, td {
+  padding: 12px 14px;
+  text-align: right;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* السطر في الجسم */
+tbody tr {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+/* تأثير المرور على السطر */
+tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* آخر سطر */
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* شارة الحالة */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* شارة نقدي */
+.badge-cash {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* شارة آجل */
+.badge-credit {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* زرار التعديل */
+.btn-edit {
+  background: #f59e0b;
+  color: white;
+  padding: 5px 12px;
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+/* زرار الحذف */
+.btn-delete {
+  background: #ef4444;
+  color: white;
+  padding: 5px 12px;
+  font-size: 12px;
+}
+
+/* ===== النافذة ===== */
+
+/* خلفية النافذة */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* صندوق النافذة */
+.modal-box {
+  background: white;
+  padding: 35px;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* عنوان النافذة */
+.modal-box h2 {
+  color: #0f766e;
+  margin-bottom: 8px;
+  font-size: 20px;
+}
+
+/* صف الحقل */
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* اسم الحقل */
+.form-row label {
+  font-size: 13px;
+  color: #374151;
+  font-weight: 600;
+}
+
+/* مجموعة الوزن والوحدة */
+.weight-group {
+  display: flex;
+  gap: 8px;
+}
+
+/* خانة الرقم */
+.weight-group input {
+  flex: 2;
+}
+
+/* قايمة الوحدة */
+.weight-group select {
+  flex: 1;
+  cursor: pointer;
+}
+
+/* صندوق الإجمالي/الباقي */
+.total-preview {
+  background: #ecfdf5;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  color: #065f46;
+  font-size: 15px;
+  border: 1px solid #a7f3d0;
+}
+
+/* الرقم في الصندوق */
+.total-preview strong {
+  font-size: 20px;
+}
+
+/* أزرار النافذة */
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* الأزرار */
+.modal-actions button {
+  flex: 1;
+  padding: 12px;
+}
+
+/* زرار الحفظ */
+#save-btn {
+  background: #16a34a;
+  color: white;
+  font-weight: bold;
+}
+
+/* زرار الإلغاء */
+#cancel-btn {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+#export-btn{
+  background: #0891b2;
+  color: white;
+}
+
+/* ============================================
+   تعديلات الموبايل (Responsive Design)
+   ============================================ */
+   @media (max-width: 768px) {
+  
+    /* 1. منع الصفحة كلها من الحركة العريضة */
+    body {
+      overflow-x: hidden;
+    }
+  
+    /* 2. تظبيط التبويبات لتكون تحت بعضها (2 في كل صف) */
+    .tabs {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+    .tab {
+      flex: 1 1 45%;
+      font-size: 14px;
+      padding: 10px;
+    }
+  
+    /* 3. تظبيط شريط الأدوات (الأزرار والبحث) */
+    .toolbar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .toolbar input, .toolbar button {
+      width: 100%;
+    }
+  
+    /* 4. تظبيط الإحصائيات (تصغير حجمها شوية) */
+    .stats {
+      grid-template-columns: 1fr;
+    }
+    .stat-box {
+      padding: 15px;
+    }
+    .stat-box strong {
+      font-size: 22px;
+    }
+  
+    /* 5. أهم حاجة: الجداول */
+    div[id$="-table-container"] {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 8px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    }
+    
+    th, td {
+      font-size: 12px;
+      padding: 10px 8px;
+      white-space: nowrap;
+    }
+  }
+
+/* الفاتوره */
+.btn-print {
+  background: #0891b2;
+  color: white;
+  padding: 5px 12px;
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+/* ===== شاشة التحميل ===== */
+.loading-screen {
+  position: fixed; /* تغطي الشاشة كلها */
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: #0f766e; /* لون البرنامج الأساسي */
+  display: flex; /* عشان نوسط العناصر */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* عشان تظهر فوق أي حاجة تانية */
+  color: white;
+  transition: opacity 0.3s ease;
+}
+
+/* الدايرة اللي بتلف */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3); /* لون الدايرة الشفاف */
+  border-top-color: white; /* اللون اللي بيلف */
+  border-radius: 50%;
+  animation: spin 1s linear infinite; /* الحركة */
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); } /* بتلف 360 درجة */
+}
+
+/* ===== تنسيق الشات بوت ===== */
+
+/* زرار الـ AI الجديد فوق */
+.btn-ai {
+  background: #6366f1;
+  color: gold;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 6px;
+  padding: 9px 18px;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-ai:hover {
+  background: #374151;
+}
+
+/* نافذة الشات نفسها */
+.chat-container {
+  position: fixed; /* ثابتة في الشاشة */
+  bottom: 90px; /* فوق زرار الشات */
+  left: 20px;
+  width: 350px; /* عرض النافذة */
+  height: 450px; /* طول النافذة */
+  background: white;
+  border-radius: 12px; /* حواف دائرية */
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2); /* ظل للنافذة */
+  display: flex; /* عشان نرتب العناصر جواها */
+  flex-direction: column; /* العناصر تحت بعضها */
+  z-index: 1000;
+  overflow: hidden; /* يخفي أي حاجة خارجة عن الإطار */
+}
+
+/* رأس النافذة (اللي فيه الاسم وزرار الإغلاق) */
+.chat-header {
+  background: #0f766e; /* لون غامق */
+  color: white;
+  padding: 15px; /* مساحة داخلية */
+  display: flex;
+  justify-content: space-between; /* الاسم على الشمال والإغلاق على اليمين */
+  align-items: center;
+  font-weight: bold;
+}
+
+/* زرار الإغلاق */
+#chat-close-btn {
+  background: none; /* مفيش خلفية */
+  color: white;
+  font-size: 18px;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* مساحة الرسائل */
+.chat-messages {
+  flex: 1; /* تاخد كل المساحة الفاضية */
+  padding: 15px;
+  overflow-y: auto; /* لو الرسائل كتير يبقى فيه سكرول */
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* مسافة بين كل رسالة والتانية */
+  background: #f9fafb; /* لون خلفية فاتح */
+}
+
+/* شكل الرسالة العام */
+.message {
+  padding: 10px 15px;
+  border-radius: 8px;
+  max-width: 80%; /* الرسالة متاخدش الشاشة كلها */
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* رسالة البوت */
+.bot-message {
+  background: #e5e7eb; /* لون رمادي فاتح */
+  color: #1f2937;
+  align-self: flex-start; /* على الشمال */
+}
+
+/* رسالة المستخدم (إنت) */
+.user-message {
+  background: #0f766e; /* لون البرنامج الأساسي */
+  color: white;
+  align-self: flex-end; /* على اليمين */
+}
+
+/* منطقة الكتابة تحت */
+.chat-input-area {
+  display: flex;
+  padding: 10px;
+  background: white;
+  border-top: 1px solid #e5e7eb; /* خط فاصل */
+}
+
+/* خانة الكتابة */
+#chat-input {
+  flex: 1; /* تاخد باقي المساحة */
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 20px; /* حواف دائرية */
+  outline: none;
+}
+
+/* زرار الإرسال */
+#chat-send-btn {
+  background: #0f766e;
+  color: white;
+  border-radius: 20px;
+  margin-right: 10px; /* مسافة بينه وبين الخانة */
+  padding: 0 15px;
+  cursor: pointer;
+}
+/*   شاشه العملاء*/
+#accounts-table-container {
+  margin-top: 20px;
+}
+#add-account-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+}
